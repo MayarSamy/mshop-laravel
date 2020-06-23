@@ -74,7 +74,11 @@
                                 <td>
                                     <a href="{{route('categories.show', $category)}}" class="btn btn-info">Show</a>
                                     <a href="{{route('categories.edit', $category)}}" class="btn btn-primary">Edit</a>
-                                    <a href="{{route('categories.destroy', $category)}}" class="btn btn-danger">Delete</a>                                
+                                    <form action="{{route('categories.destroy', $category)}}" method="POST" class="d-inline-block">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </form>
                                 </td>
                             </tr>                            
                             @endforeach

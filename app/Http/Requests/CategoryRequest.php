@@ -23,8 +23,21 @@ class CategoryRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rules =[
             'name'=> 'required'
+        ];
+        if ($this->input('parent_id'))
+        {
+            $rules[] ='exists:categories,id';
+        }
+        return $rules;
+    }
+
+    public function messages()
+    {
+        return [
+            'parent_id.exists'=> 'Invalid category',
+            'name.required'=> 'Enter category name'
         ];
     }
 }

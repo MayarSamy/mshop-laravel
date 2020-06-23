@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Category;
 use Illuminate\Http\Request;
+use App\Http\Requests\CategoryRequest;
 
 class CategoryController extends Controller
 {
@@ -37,12 +38,13 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \http\Requests\CategoryRequest  $request
+     * @param  CategoryRequest  $request
      * @return \Illuminate\Http\Response
+     * 
      */
     public function store(CategoryRequest $request)
     {
+        $request = $this->levelHandle($request);   
         $category = Category::create($request->all());
         return redirect(route('categories.show', $category));
     }
@@ -68,7 +70,10 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        return view('admin\category\edit', [
+            'category'=> $category,
+            'categories'=>Category::all()
+        ]);
     }
 
     /**
@@ -78,9 +83,11 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(CategoryRequest $request, Category $category)
     {
-        //
+        $request = $this->levelHandle($request);
+        $category->update($request->all());
+        return redirect(route('categories.show', $category));
     }
 
     /**
@@ -91,6 +98,19 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        return redirect(route('categories.index'));
+    }
+
+    private function levelHandle($request)
+    {
+        if($request->input('parent_id'))
+        {
+        $parent = Category::find($request->input('parent_id'));
+        $request->merge([
+            'level'=> $parent->level + 1
+        ]);
+        }
+        return $request;
     }
 }

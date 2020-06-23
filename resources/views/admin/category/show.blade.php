@@ -33,6 +33,7 @@
                 @if ($category->parent)
                     Parent: <a href="{{route('categories.show', $category->parent)}}">{{$category->parent->name}}</a>
                 @endif
+                <a href="{{route('categories.edit', $category)}}" class="btn btn-primary">Edit</a>
             </div>
         </div>
         <!-- /.row -->
