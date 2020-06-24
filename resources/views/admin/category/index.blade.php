@@ -38,12 +38,11 @@
                             <button type="submit">Rows</button>
                         </form>
                     </div>
-                
-                        <form class="form-inline">
+                        {{-- <form class="form-inline">
                             <input type="text" name="search" class="form form-control" style="margin-right: 5px">
                             <button type="submit" class="btn btn-info" style="margin-right: 5px">Search</button>
                             <a href="{{ route('categories.index')}}" >Reset</a>                            
-                        </form>
+                        </form> --}}
                     
                     <div class="col text-right">
                         <a href="{{route('categories.create')}}" class="btn btn-success">Create</a>
