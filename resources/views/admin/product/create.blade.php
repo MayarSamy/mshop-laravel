@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'all categories')
+@section('title', 'all products')
 
 @section('content')
     
@@ -10,12 +10,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1 class="m-0 text-dark"> categories</h1>
+                        <h1 class="m-0 text-dark"> products</h1>
                     </div><!-- /.col -->
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="/">Admin</a></li>
-                            <li class="breadcrumb-item active">Edit category</li>
+                            <li class="breadcrumb-item active">Create new product</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -28,9 +28,8 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="card card-body">
-                    <form action="{{route('admin.categories.update', $category)}}" method="POST">
-                        @method('PUT')
-                        @include('admin.category.form')
+                    <form action="{{route('admin.products.store')}}" method="POST">
+                        @include('admin\product\form')
                     </form>
                 </div>
             <!-- /.row -->

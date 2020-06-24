@@ -87,7 +87,7 @@ class CategoryController extends Controller
     {
         $request = $this->levelHandle($request);
         $category->update($request->all());
-        return redirect(route('categories.show', $category));
+        return redirect(route('admin.categories.show', $category));
     }
 
     /**
@@ -99,7 +99,7 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         $category->delete();
-        return redirect(route('categories.index'));
+        return redirect(route('admin.categories.index'));
     }
 
     private function levelHandle($request)
