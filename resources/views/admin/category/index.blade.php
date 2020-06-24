@@ -13,7 +13,7 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="/">Admin</a></li>
+                        <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Admin</a></li>
                         <li class="breadcrumb-item active">All categories</li>
                     </ol>
                 </div><!-- /.col -->
@@ -45,7 +45,7 @@
                         </form> --}}
                     
                     <div class="col text-right">
-                        <a href="{{route('categories.create')}}" class="btn btn-success">Create</a>
+                        <a href="{{route('admin.categories.create')}}" class="btn btn-success">Create</a>
                     </div>
                 </div>               
                 <br>
@@ -67,13 +67,13 @@
                                 <td>
                                     {{-- {{$category->parent? $category->parent->name : ''}} --}}
                                     @if ($category->parent)
-                                        <a href="{{route('categories.show', $category->parent)}}" class="link_item">{{$category->parent->name}}</a>                                        
+                                        <a href="{{route('admin.categories.show', $category->parent)}}" class="link_item">{{$category->parent->name}}</a>                                        
                                     @endif
                                 </td>
                                 <td>
-                                    <a href="{{route('categories.show', $category)}}" class="btn btn-info">Show</a>
-                                    <a href="{{route('categories.edit', $category)}}" class="btn btn-primary">Edit</a>
-                                    <form action="{{route('categories.destroy', $category)}}" method="POST" class="d-inline-block">
+                                    <a href="{{route('admin.categories.show', $category)}}" class="btn btn-info">Show</a>
+                                    <a href="{{route('admin.categories.edit', $category)}}" class="btn btn-primary">Edit</a>
+                                    <form action="{{route('admin.categories.destroy', $category)}}" method="POST" class="d-inline-block">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger">Delete</button>

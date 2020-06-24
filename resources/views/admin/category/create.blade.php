@@ -28,7 +28,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="card card-body">
-                    <form action="{{route('categories.store')}}" method="POST">
+                    <form action="{{route(admin.categories.store')}}" method="POST">
                         @include('admin.category.form')
                     </form>
                 </div>

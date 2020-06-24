@@ -13,22 +13,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'CategoryController@index');
+Route::get('/', function(){
+    return 'INDEX';
+});
+Route::group([
+    'prefix' => 'admin',
+    'as' => 'admin.',
+    'middleware' => 'auth'
+], function () {
+    Route::get('/', 'DashboardController')->name('dashboard');
 
-Route::resource('categories', 'CategoryController');
+    Route::resource('categories', 'CategoryController');
 
-Auth::routes();
-
-///Route::get('/home', 'HomeController@index')->name('home');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+});
 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');

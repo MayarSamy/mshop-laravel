@@ -9,13 +9,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark"> categories</h1>
+                    <h1 class="m-0 text-dark">Admin Dashboard</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="/">Admin</a></li>
-                        <li class="breadcrumb-item"><a href="{{route('admin.categories.index')}}">categories</a></li>
-                        <li class="breadcrumb-item active">Show category: {{$category->name}}</li>
+                        {{-- <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Admin</a></li> --}}
+                        <li class="breadcrumb-item active">Dashboard</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -27,13 +26,8 @@
     <div class="content">
     <div class="container-fluid">
         <div class="row">
-            <div class="card card-body">
-                <h2>Title: {{$category->name}}</h2>
-                <p>description: {{$category->description}}</p>
-                @if ($category->parent)
-                    Parent: <a href="{{route('admin.categories.show', $category->parent)}}">{{$category->parent->name}}</a>
-                @endif
-                <a href="{{route('admin.categories.edit', $category)}}" class="btn btn-primary">Edit</a>
+            <div class="card card-body" style="min-height: 600px">
+                <h1>Dashboard</h1>
             </div>
         </div>
         <!-- /.row -->

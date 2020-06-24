@@ -20,7 +20,7 @@
         <button class="btn btn-navbar" type="submit">
             <i class="fas fa-search"></i>
         </button>
-        <a href="{{ route('categories.index')}}" class="btn btn-dark">Reset</a>                            
+        <a href="{{ route('admin.categories.index')}}" class="btn btn-dark">Reset</a>                            
         </div>
     </div>
     </form>

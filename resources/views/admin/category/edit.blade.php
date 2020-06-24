@@ -28,7 +28,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="card card-body">
-                    <form action="{{route('categories.update', $category)}}" method="POST">
+                    <form action="{{route('admin.categories.update', $category)}}" method="POST">
                         @method('PUT')
                         @include('admin.category.form')
                     </form>
