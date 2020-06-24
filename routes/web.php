@@ -13,8 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Route::get('/', function(){
+//     return 'INDEX';
+// });
 Route::get('/', function(){
-    return 'INDEX';
+    return redirect('register');
 });
 Route::group([
     'prefix' => 'admin',
