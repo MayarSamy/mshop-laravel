@@ -13,14 +13,14 @@
     </ul>
 
     <!-- SEARCH FORM -->
-    <form class="form-inline ml-3">
+    <form class="form-inline ml-3"> 
     <div class="input-group input-group-sm">
         <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search" name="search">
         <div class="input-group-append">
         <button class="btn btn-navbar" type="submit">
             <i class="fas fa-search"></i>
         </button>
-        <a href="{{ route('admin.categories.index')}}" class="btn btn-dark">Reset</a>                            
+        {{-- <a href="{{ route('admin.categories.index')}}" class="btn btn-dark">Reset</a>                             --}}
         </div>
     </div>
     </form>

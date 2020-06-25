@@ -29,6 +29,8 @@ Route::group([
     Route::resource('categories', 'CategoryController');
     Route::resource('products', 'ProductController');
     Route::resource('customers', 'CustomerController');
+    Route::resource('payments', 'PaymentController');
+
 
     
 

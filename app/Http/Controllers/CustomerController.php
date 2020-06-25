@@ -14,12 +14,12 @@ class CustomerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
         //$searched = $request->query('search');
         return view('admin\customer\index', [
             'customers'=> Customer::all()
-            //->where('name', 'LIKE', "%{$searched}%")
+            //->where('email', 'LIKE', "%{$searched}%")
             //->paginate($request->query('limit', 5))
         ]);
     }

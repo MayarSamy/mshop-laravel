@@ -22,6 +22,16 @@
         </p>
     </a>
 </li>
+
+<li class="nav-item">
+    <a href="{{route('admin.payments.index')}}" class="nav-link">
+        <i class="nav-icon fas fa-th"></i>
+        <p>
+            Payment methods
+        </p>
+    </a>
+</li>
+
 <li class="nav-item">
     <form action="{{route('logout')}}" method="POST" class="nav-link text-center">
         @csrf
