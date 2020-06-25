@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Customer;
 use Illuminate\Http\Request;
+use App\Http\Requests\CustomerRequest;
+
 
 class CustomerController extends Controller
 {
@@ -12,9 +14,14 @@ class CustomerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        //$searched = $request->query('search');
+        return view('admin\customer\index', [
+            'customers'=> Customer::all()
+            //->where('name', 'LIKE', "%{$searched}%")
+            //->paginate($request->query('limit', 5))
+        ]);
     }
 
     /**
@@ -24,7 +31,9 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin\customer\create', [
+            'customers'=>Customer::all() 
+        ]);
     }
 
     /**
@@ -33,9 +42,10 @@ class CustomerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CustomerRequest $request)
     {
-        //
+        $customer = Customer::create($request->all());
+        return redirect(route('admin.customers.show', $customer));
     }
 
     /**
@@ -46,7 +56,9 @@ class CustomerController extends Controller
      */
     public function show(Customer $customer)
     {
-        //
+        return view('admin\customer\show', [
+            'customer'=> $customer
+        ]);
     }
 
     /**
@@ -57,7 +69,9 @@ class CustomerController extends Controller
      */
     public function edit(Customer $customer)
     {
-        //
+        return view('admin\customer\edit', [
+            'customer'=> $customer
+        ]);
     }
 
     /**
@@ -67,9 +81,10 @@ class CustomerController extends Controller
      * @param  \App\Customer  $customer
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Customer $customer)
+    public function update(CustomerRequest $request, Customer $customer)
     {
-        //
+        $customer->update($request->all());
+        return redirect(route('admin.customers.show', $customer));
     }
 
     /**
@@ -80,6 +95,7 @@ class CustomerController extends Controller
      */
     public function destroy(Customer $customer)
     {
-        //
+        $customer->delete();
+        return redirect(route('admin.customers.index'));
     }
 }
