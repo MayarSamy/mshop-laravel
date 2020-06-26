@@ -20,7 +20,7 @@
         @endif 
     </div>
 
-    <div class="form-group">
+    {{-- <div class="form-group">
         <label for="password">Password</label>
         <input type="password" name="password" id="password" value="{{isset($customer)? $customer->password: '' }}" cols="30" rows="10" class="form-control">
         @if ($errors->first('password'))
@@ -28,7 +28,7 @@
                 {{$errors->first('password')}}
             </span>
         @endif 
-    </div>
+    </div> --}}
 
     <div class="text-center">
         <button type="submit" class="btn btn-success">Save</button>
