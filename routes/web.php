@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
 //     return 'INDEX';
 // });
 Route::get('/', function(){
-    return redirect('register');
+    return redirect('login');
 });
 Route::group([
     'prefix' => 'admin',
@@ -30,9 +30,7 @@ Route::group([
     Route::resource('products', 'ProductController');
     Route::resource('customers', 'CustomerController');
     Route::resource('payments', 'PaymentController');
-
-
-    
+    Route::resource('orders', 'OrderController');
 
 });
 

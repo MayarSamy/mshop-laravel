@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Customer;
 use App\Order;
+use App\Product;
 use Illuminate\Http\Request;
+use App\Http\Requests\OrderRequest;
+
 
 class OrderController extends Controller
 {
@@ -12,9 +16,13 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $searched = $request->query('search');
+        return view('admin\order\index', [
+            'orders'=>Order::where('date', 'LIKE', "%{$searched}%")
+            ->paginate($request->query('limit', 5))
+        ]);
     }
 
     /**
@@ -24,7 +32,11 @@ class OrderController extends Controller
      */
     public function create()
     {
-        //
+        
+        return view('admin\order\create', [
+            'products'=>Product::all(),
+            'customers'=>Customer::all()
+        ]);
     }
 
     /**
@@ -33,9 +45,19 @@ class OrderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(OrderRequest $request)
     {
-        //
+        $request->merge([
+            'user_id' =>$request->user()->id
+        ]);
+        $order = Order::create($request->all());
+        
+        // nedd to do the validation that the quantity is less or equal yhe product quantity 
+        
+        $order->products()->attach($request->get('items'));
+        $order->save();
+
+        return redirect(route('admin.orders.show', $order));
     }
 
     /**

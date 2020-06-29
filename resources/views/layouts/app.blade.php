@@ -38,5 +38,6 @@
 
     <!-- REQUIRED SCRIPTS -->
     @include('layouts.parts.js')
+    @yield('js')
         </body>
     </html>

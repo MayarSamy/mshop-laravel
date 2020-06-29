@@ -25,7 +25,7 @@ class CustomerRequest extends FormRequest
     {
         $rules =[
             'name'=> 'required',
-            'email'=>'unique:customers',
+            'email'=>'required|unique:customers',
             'password'=>'required'
         ];
         

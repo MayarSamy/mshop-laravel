@@ -25,8 +25,7 @@ class CreateCategoriesTable extends Migration
             $table->foreign('parent_id')
                 ->on('categories')
                 ->references('id')
-                ->cascadeOnDelete()
-            ;
+                ->cascadeOnDelete();
         }
         });
     }

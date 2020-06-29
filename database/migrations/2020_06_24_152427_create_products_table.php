@@ -17,8 +17,9 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string('name');
             $table->text('description')->nullable();
-            $table->double('price');
-            $table->integer('quantity');
+            $table->unsignedDouble('price');
+            $table->unsignedInteger('quantity')->default(0);
+            $table->unsignedInteger('reorder_point')->default(0);
             $table->string('image')->nullable();
 
             {
@@ -26,8 +27,7 @@ class CreateProductsTable extends Migration
                 $table->foreign('category_id')
                     ->on('categories')
                     ->references('id')
-                    ->cascadeOnDelete()
-                ;
+                    ->cascadeOnDelete();
             }
 
             {
@@ -35,8 +35,7 @@ class CreateProductsTable extends Migration
                 $table->foreign('user_id')
                     ->on('users')
                     ->references('id')
-                    ->cascadeOnDelete()
-                ;
+                    ->cascadeOnDelete();
             }
 
             $table->softDeletes();            
