@@ -10,12 +10,18 @@ class Order extends Model
         'date',
         'total_amount',
         'customer_id',
+        'payment_id',
         'user_id'
     ];
 
     public function customer()
     {
         return $this->belongsTo(Customer::class);
+    }
+
+    public function payment()
+    {
+        return $this->belongsTo(Payment::class);
     }
 
     public function products()
@@ -25,6 +31,7 @@ class Order extends Model
         'order_details', 
         'order_id', 
         'product_id')
+        ->withPivot('price', 'quantity', 'total')
         ->withTimestamps();
     }
 }

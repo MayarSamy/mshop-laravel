@@ -33,6 +33,14 @@ class CreateOrdersTable extends Migration
                     ->references('id')
                     ->cascadeOnDelete();
             } 
+
+            {
+                $table->unsignedBigInteger('payment_id');
+                $table->foreign('payment_id')
+                    ->on('payments')
+                    ->references('id')
+                    ->cascadeOnDelete();
+            }
     
             $table->softDeletes();
             $table->timestamps();

@@ -31,6 +31,7 @@ class OrderRequest extends FormRequest
             'products.*.product_id'=>'required|exists:products,id',
             'products.*.price'=>'required|numeric',
             'products.*.total'=>'required|numeric',
+            'payment_id'=>'required|exists:payments,id'
         ];
     }
 

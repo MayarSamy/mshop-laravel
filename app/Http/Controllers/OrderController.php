@@ -7,7 +7,7 @@ use App\Order;
 use App\Product;
 use Illuminate\Http\Request;
 use App\Http\Requests\OrderRequest;
-
+use App\Payment;
 
 class OrderController extends Controller
 {
@@ -35,7 +35,8 @@ class OrderController extends Controller
         
         return view('admin\order\create', [
             'products'=>Product::all(),
-            'customers'=>Customer::all()
+            'customers'=>Customer::all(),
+            'payments'=>Payment::all()
         ]);
     }
 
@@ -52,9 +53,9 @@ class OrderController extends Controller
         ]);
         $order = Order::create($request->all());
         
-        // nedd to do the validation that the quantity is less or equal yhe product quantity 
+        //nedd to do the validation that the quantity is less or equal yhe product quantity 
         
-        $order->products()->attach($request->get('items'));
+        $order->products()->attach($request->get('products'));
         $order->save();
 
         return redirect(route('admin.orders.show', $order));
@@ -68,7 +69,10 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        //
+        return view('admin\order\show', [
+            'order'=> $order,
+            'products'=>$order->products
+        ]);
     }
 
     /**
