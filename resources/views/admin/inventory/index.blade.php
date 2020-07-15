@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'all customers')
+@section('title', 'all inventories')
 
 @section('content')
 <div class="content-wrapper">
@@ -9,12 +9,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark"> customers</h1>
+                    <h1 class="m-0 text-dark"> inventories</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="{{route('admin.dashboard')}}">Admin</a></li>
-                        <li class="breadcrumb-item active">All customers</li>
+                        <li class="breadcrumb-item active">All inventories</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -41,34 +41,32 @@
                         {{-- <form class="form-inline">
                             <input type="text" name="search" class="form form-control" style="margin-right: 5px">
                             <button type="submit" class="btn btn-info" style="margin-right: 5px">Search</button>
-                            <a href="{{ route('categories.index')}}" >Reset</a>                            
+                            <a href="{{ route('inventories.index')}}" >Reset</a>                            
                         </form> --}}
                     
                     <div class="col text-right">
-                        <a href="{{route('admin.customers.create')}}" class="btn btn-success">Create</a>
+                        <a href="{{route('admin.inventories.create')}}" class="btn btn-success">Create</a>
                     </div>
                 </div>               
                 <br>
 
-                <table class="table table-bordered">
+                <table class="table table-binventoryed">
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Name</th>
-                            <th>email</th>
+                            <th>inventory Name</th>
                             <th>Actions</th>
                         </tr>
                         <tbody>
 
-                            @foreach ($customers as $customer)                
+                            @foreach ($inventories as $inventory)                
                             <tr>
-                                <td>{{$customer->id}}</td>
-                                <td>{{$customer->name}}</td>
-                                <td>{{$customer->email}}</td>
+                                <td>{{$inventory->id}}</td>
+                                <td>{{$inventory->customer->name}}</td>                                    
                                 <td>
-                                    <a href="{{route('admin.customers.show', $customer)}}" class="btn btn-info">Show</a>
-                                    <a href="{{route('admin.customers.edit', $customer)}}" class="btn btn-primary">Edit</a>
-                                    <form action="{{route('admin.customers.destroy', $customer)}}" method="POST" class="d-inline-block">
+                                    <a href="{{route('admin.inventories.show', $inventory)}}" class="btn btn-info">Show</a>
+                                    <a href="{{route('admin.inventories.edit', $inventory)}}" class="btn btn-primary">Edit</a>
+                                    <form action="{{route('admin.inventories.destroy', $inventory)}}" method="POST" class="d-inline-block">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger">Delete</button>
@@ -79,7 +77,7 @@
                         </tbody>
                     </thead>
                 </table>
-                {!!$customers->links()!!}
+                {!!$inventories->links()!!}
             </div>
         </div>
         <!-- /.row -->
@@ -88,5 +86,3 @@
     <!-- /.content -->
 </div>
 @endsection
-
-

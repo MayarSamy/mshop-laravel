@@ -1,6 +1,11 @@
 @extends('layouts.auth')
 
 @section('content')
+
+<div class="register-logo align_center">
+    <b>AdminLTE</b>
+ </div>
+
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">

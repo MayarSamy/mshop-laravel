@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PaymentRequest extends FormRequest
+class InventoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,10 +13,8 @@ class PaymentRequest extends FormRequest
      */
     public function authorize()
     {
-        if(!$this->user()->is_admin)
-        {
-            abort(403);
-        }    }
+        return $this->user();
+    }
 
     /**
      * Get the validation rules that apply to the request.
@@ -26,7 +24,7 @@ class PaymentRequest extends FormRequest
     public function rules()
     {
         return [
-            'name'=> 'required'
+            'user_id'=>'required|exists:users,id'
         ];
     }
 }

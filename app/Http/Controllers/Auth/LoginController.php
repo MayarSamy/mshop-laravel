@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\CustomerRequest;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
@@ -36,5 +38,23 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    public function customerLoginForm()
+    {
+        return view('auth.customers.login-customer');
+    }
+
+    public function LoginCustomer(CustomerRequest $request)
+    {
+        if(Auth::authenticate('customers')->attempt(['email'=>$request->get('email'), 'password'=>$request->get('password')]))
+        {
+            return redirect()->route('index');
+            //return 'index';
+        }
+        else 
+        {
+            return back()->withErrors('customers');
+        }
     }
 }

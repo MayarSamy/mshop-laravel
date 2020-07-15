@@ -50,7 +50,7 @@
                 </div>               
                 <br>
 
-                <table class="table table-bordered">
+                <table class="table table-bordered table-data">
                     <thead>
                         <tr>
                             <th>#</th>
@@ -62,38 +62,10 @@
                             <th>Actions</th>
                         </tr>
                         <tbody>
-
-                            @foreach ($products as $product)                
-                            <tr>
-                                <td>{{$product->id}}</td>
-                                <td>{{$product->name}}</td>
-                                <td>{{$product->price}}</td>
-                                <td>{{$product->quantity}}</td>
-                                <td>
-                                    @if ($product->category)
-                                        <a href="{{route('admin.products.show', $product->category)}}" class="link_item">{{$product->category->name}}</a>                                        
-                                    @endif
-                                </td>
-                                <td>
-                                    @if ($product->user)
-                                        <a href="{{route('admin.products.show', $product->user)}}" class="link_item">{{$product->user->name}}</a>                                        
-                                    @endif
-                                </td>
-                                <td>
-                                    <a href="{{route('admin.products.show', $product)}}" class="btn btn-info">Show</a>
-                                    <a href="{{route('admin.products.edit', $product)}}" class="btn btn-primary">Edit</a>
-                                    <form action="{{route('admin.products.destroy', $product)}}" method="POST" class="d-inline-block">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger">Delete</button>
-                                    </form>
-                                </td>
-                            </tr>                            
-                            @endforeach
+                        
                         </tbody>
                     </thead>
                 </table>
-                {!!$products->links()!!}
             </div>
         </div>
         <!-- /.row -->
@@ -102,3 +74,66 @@
     <!-- /.content -->
 </div>
 @endsection
+
+@section('js')
+    <script>
+
+        $(function(){
+            getAllProducts();
+        });
+
+        $(document).on('click', '.page-link', function (e) {
+            e.preventDefault();
+            getAllProducts($(this).text());
+        }); 
+
+        $(document).on('click', '.delete', function(e){
+            //e.preventDefault();
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: $(this).data('url'),
+                            type: 'POST',
+                            data: {
+                                _method: 'DELETE',
+                                _token: '{{csrf_token()}}'
+                            },
+                            success: function(res)
+                            {
+                                if (result.value) {
+                                    Swal.fire(
+                                        'Deleted!',
+                                        'Your file has been deleted.',
+                                        'success'
+                                    );
+
+                                } 
+                                getAllProducts();  
+                            }
+                        })
+                    }
+                })
+            }); 
+
+        function getAllProducts(page)
+        {
+            $.ajax({
+                url: '{{route("admin.get-products")}}?page' + page,
+                type: 'GET',
+                success:function(res)
+                {
+                    $('.table-data tbody').html(res);
+                }
+            })
+        }
+    </script>
+@endsection
+

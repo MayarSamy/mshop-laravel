@@ -14,16 +14,25 @@ class ProductController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
+     *  @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function index(Request $request)
     {
         $searched = $request->query('search');
         return view('admin\product\index', [
             'products'=> Product::with(['category'])
-            ->where('name', 'LIKE', "%{$searched}%")
-            ->paginate($request->query('limit', 5))
+           // ->where('name', 'LIKE', "%{$searched}%")
+            //->paginate($request->query('limit', 10))
         ]);
     }
+
+    public function getProudcts(Request $request)
+    {
+      return view('admin.product.table', [
+          'products'=> Product::query($request)->paginate(10)
+      ]);
+    }
+
 
     /**
      * Show the form for creating a new resource.

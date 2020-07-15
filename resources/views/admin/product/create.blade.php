@@ -28,7 +28,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="card card-body">
-                    <form action="{{route('admin.products.store')}}" method="POST">
+                    <form action="{{route('admin.products.store')}}" method="POST" enctype="multipart/form_data">
                         @include('admin\product\form')
                     </form>
                 </div>

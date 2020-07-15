@@ -21,7 +21,7 @@ class OrderController extends Controller
         $searched = $request->query('search');
         return view('admin\order\index', [
             'orders'=>Order::where('date', 'LIKE', "%{$searched}%")
-            ->paginate($request->query('limit', 5))
+            ->paginate($request->query('limit', 10))
         ]);
     }
 
@@ -83,7 +83,12 @@ class OrderController extends Controller
      */
     public function edit(Order $order)
     {
-        //
+        return view('admin\order\edit', [
+            'order'=> $order,
+            'products'=>$order->products->all(),
+            'customers'=>$order->customer(),
+            'payments'=>$order->payment()
+        ]);
     }
 
     /**

@@ -36,10 +36,12 @@ class ProductRequest extends FormRequest
         {
             $rules[] ='required';
         }
+
         if ($this->input('user_id'))
         {
             $rules[] ='exists:users,id';
         }
+        
         return $rules;
     }
 }

@@ -15,11 +15,16 @@ class CategoryController extends Controller
      */
     public function index(Request $request)
     {
+        if(!$request->user()->is_admin)
+        {
+            abort(403);
+        }
+        
         $searched = $request->query('search');
         return view('admin\category\index', [
             'categories'=> Category::with(['parent'])
             ->where('name', 'LIKE', "%{$searched}%")
-            ->paginate($request->query('limit', 5))
+            ->paginate($request->query('limit', 10))
         ]);
     }
 

@@ -67,6 +67,11 @@
         <textarea name="description" id="description" cols="30" rows="10" class="form-control">{{isset($product)? $product->description: '' }}</textarea>
     </div>
 
+    <div class="form-group">
+        <label for="photo">Photo</label>
+        <input type="file" name="photo" id="photo">
+    </div>
+
     <div class="text-center">
         <button type="submit" class="btn btn-success">Save</button>
     </div>

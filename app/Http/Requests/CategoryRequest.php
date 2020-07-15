@@ -13,8 +13,10 @@ class CategoryRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
-    }
+        if(!$this->user()->is_admin)
+        {
+            abort(403);
+        }    }
 
     /**
      * Get the validation rules that apply to the request.

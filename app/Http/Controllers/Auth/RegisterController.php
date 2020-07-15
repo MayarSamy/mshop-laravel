@@ -2,12 +2,17 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use App\Providers\RouteServiceProvider;
 use App\User;
-use Illuminate\Foundation\Auth\RegistersUsers;
+use App\Customer;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+//use Illuminate\Http\Request;
+use App\Http\Requests\CustomerRequest;
+use App\Providers\RouteServiceProvider;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Foundation\Auth\RegistersUsers;
+
 
 class RegisterController extends Controller
 {
@@ -69,5 +74,29 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+    public function customerRegisterForm()
+    {
+        return view('auth.customers.register-customer');
+    }
+
+
+    public function registerCustomer(CustomerRequest $request)
+    {
+        $data = $request->all();
+        $plinPassword = $data['password'];
+        $customer =  Customer::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => Hash::make($plinPassword)
+        ]);
+
+        if(Auth::authenticate('customers')->attempt(['email'=>$request->get('email'), 'password'=>$plinPassword]))
+        {
+            return 'index';
+            //return redirect()->route('customer-login-form');
+        }
+        Auth::abort(401);
     }
 }

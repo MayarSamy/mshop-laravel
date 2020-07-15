@@ -19,7 +19,7 @@ class CustomerController extends Controller
         $searched = $request->query('search');
         return view('admin\customer\index', [
             'customers'=> Customer::where('email', 'LIKE', "%{$searched}%")
-            ->paginate($request->query('limit', 5))
+            ->paginate($request->query('limit', 10))
         ]);
     }
 

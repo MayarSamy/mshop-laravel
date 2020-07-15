@@ -14,8 +14,12 @@ class PaymentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if(!$request->user()->is_admin)
+        {
+            abort(403);
+        }
         return view('admin\paymant\index', [
             'payments'=> Payment::all()
             //->where('email', 'LIKE', "%{$searched}%")

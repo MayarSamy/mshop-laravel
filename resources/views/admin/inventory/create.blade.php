@@ -15,7 +15,7 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="/">Admin</a></li>
-                            <li class="breadcrumb-item active">Edit order</li>
+                            <li class="breadcrumb-item active">Create new order</li>
                         </ol>
                     </div><!-- /.col -->
                 </div><!-- /.row -->
@@ -28,9 +28,8 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="card card-body">
-                    <form action="{{route('admin.orders.update', $order)}}" method="POST">
-                        @method('PUT')
-                        @include('admin.order.editForm')
+                    <form action="{{route('admin.orders.store')}}" method="POST">
+                        @include('admin.order.form')
                     </form>
                 </div>
             <!-- /.row -->
