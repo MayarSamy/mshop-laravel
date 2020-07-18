@@ -9,8 +9,8 @@ use Laravel\Scout\Searchable;
 
 class Category extends Model
 {
-    use SoftDeletes;
-    use Searchable;
+    //use SoftDeletes;
+    //use Searchable;
 
     
     protected $fillable = [

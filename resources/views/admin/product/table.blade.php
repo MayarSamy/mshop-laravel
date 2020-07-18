@@ -15,9 +15,14 @@
             @endif
         </td>
         <td>
-            <a href="{{route('admin.products.show', $product)}}" class="btn btn-info">Show</a>
-            <a href="{{route('admin.products.edit', $product)}}" class="btn btn-primary">Edit</a>
-            <button type="button" class="btn btn-danger delete" data-url="{{route('admin.products.destroy', $product)}}" >Delete</button>                     
+            @if(!auth()->user()->is_admin)
+            {{-- add route to create inventory page --}}
+                <a href="" class="btn btn-dark">Create Inventory</a>
+            @else
+                <a href="{{route('admin.products.show', $product)}}" class="btn btn-info">Show</a>
+                <a href="{{route('admin.products.edit', $product)}}" class="btn btn-primary">Edit</a>
+                <button type="button" class="btn btn-danger delete" data-url="{{route('admin.products.destroy', $product)}}" >Delete</button>                     
+            @endif
         </td>
     </tr>                            
 @endforeach
@@ -26,6 +31,5 @@
     <td colspan="4">
         {!!$products->links()!!}
     </td>
-    {!!$products->links()!!}
 </tr>
 

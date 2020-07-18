@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Product;
 use Illuminate\Http\Request;
 use App\Http\Requests\ProductRequest;
+//use App\Http\Controllers\DB;
 use App\Category;
 use App\User;
+use DB;
 
 class ProductController extends Controller
 {
@@ -18,18 +20,18 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        $searched = $request->query('search');
         return view('admin\product\index', [
-            'products'=> Product::with(['category'])
-           // ->where('name', 'LIKE', "%{$searched}%")
-            //->paginate($request->query('limit', 10))
         ]);
+
     }
 
     public function getProudcts(Request $request)
     {
+        $searched = $request->query('search');
       return view('admin.product.table', [
-          'products'=> Product::query($request)->paginate(10)
+          'products'=> Product::with(['category'])
+          ->where('name', 'LIKE', "%{$searched}%")
+          ->paginate($request->query('limit', 10))
       ]);
     }
 
@@ -109,6 +111,6 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         $product->delete();
-        return redirect(route('admin.products.show'));
+        return redirect(route('admin.products.index'));
     }
 }

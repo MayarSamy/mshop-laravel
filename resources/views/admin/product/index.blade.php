@@ -38,15 +38,18 @@
                             <button type="submit">Rows</button>
                         </form>
                     </div>
+
                         {{-- <form class="form-inline">
-                            <input type="text" name="search" class="form form-control" style="margin-right: 5px">
-                            <button type="submit" class="btn btn-info" style="margin-right: 5px">Search</button>
-                            <a href="{{ route('categories.index')}}" >Reset</a>                            
-                        </form> --}}
-                    
+                            <input type="text" name="search" id="search" class="form form-control" style="margin-right: 5px">
+                            <button type="button" class="btn btn-info" style="margin-right: 5px">Search</button>
+                            <a href="{{ route('admin.search')}}" >Reset</a>                            
+                        </form>  --}}
+                @if(auth()->user()->is_admin)
                     <div class="col text-right">
                         <a href="{{route('admin.products.create')}}" class="btn btn-success">Create</a>
                     </div>
+                @endif 
+                   
                 </div>               
                 <br>
 
@@ -78,17 +81,28 @@
 @section('js')
     <script>
 
-        $(function(){
+        $(function()
+        {
             getAllProducts();
-        });
-
-        $(document).on('click', '.page-link', function (e) {
+        }
+        );
+        
+        $(document).on('keyup', '#search', function (e) 
+        {
             e.preventDefault();
             getAllProducts($(this).text());
-        }); 
+        }
+        ); 
+
+        $(document).on('click', '.page-link', function (e) 
+        {
+            e.preventDefault();
+            getAllProducts($(this).text());
+        }
+        ); 
 
         $(document).on('click', '.delete', function(e){
-            //e.preventDefault();
+            e.preventDefault();
             Swal.fire({
                 title: 'Are you sure?',
                 text: "You won't be able to revert this!",
@@ -98,6 +112,7 @@
                 cancelButtonColor: '#d33',
                 confirmButtonText: 'Yes, delete it!'
                 }).then((result) => {
+                    //dd(result);
                     if (result.isConfirmed) {
                         $.ajax({
                             url: $(this).data('url'),
@@ -110,23 +125,24 @@
                             {
                                 if (result.value) {
                                     Swal.fire(
-                                        'Deleted!',
-                                        'Your file has been deleted.',
-                                        'success'
-                                    );
-
-                                } 
-                                getAllProducts();  
+                                    'Deleted!',
+                                    'Your file has been deleted.',
+                                    'success'
+                                    )
+                                    getAllProducts();
+                                }
                             }
                         })
                     }
                 })
             }); 
 
+
+        
         function getAllProducts(page)
         {
             $.ajax({
-                url: '{{route("admin.get-products")}}?page' + page,
+                url: '{{route("admin.get-products")}}?page=' + page,
                 type: 'GET',
                 success:function(res)
                 {
